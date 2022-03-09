@@ -10,29 +10,30 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  - script: echo Hello, world!
+    displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - script: |
+      echo Add other tasks to build, test, and deploy your project.
+      echo See https://aka.ms/yaml
+    displayName: 'Run a multi-line script'
 
-- bash: |
-  # Install gsutil
-  echo "Attempting to install gsutil"
-  sudo apt-get install apt-transport-https ca-certificates gnupg
-  echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
-    | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-  curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo tee /usr/share/keyrings/cloud.google.gpg
-  sudo apt-get update && sudo apt-get install google-cloud-cli
+  - bash: |
+      # Install gsutil
+      echo "Attempting to install gsutil"
+      sudo apt-get install apt-transport-https ca-certificates gnupg
+      echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
+        | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+      curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo tee /usr/share/keyrings/cloud.google.gpg
+      echo "Installing"
+      sudo apt-get update && sudo apt-get install google-cloud-cli
 
-  date -u > latest.txt
-  echo "<commit id>" >> latest.txt
-  echo "latest.txt:"
-  cat latest.txt
-  echo "Testing gsutil"
-  gsutil --version
-  gsutil cp --help
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-  displayName: Test installing gsutil 
+      date -u > latest.txt
+      echo "<commit id>" >> latest.txt
+      echo "latest.txt:"
+      cat latest.txt
+      echo "Testing gsutil"
+      gsutil --version
+      gsutil cp --help
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    displayName: Test installing gsutil 

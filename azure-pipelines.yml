@@ -29,7 +29,7 @@ steps:
       sudo apt-get update && sudo apt-get install google-cloud-cli
 
       date -u > latest.txt
-      echo ${{ Build.SourceVersion }} >> latest.txt
+      echo $(Build.SourceVersion) >> latest.txt
       echo "latest.txt:"
       cat latest.txt
       echo "Testing gsutil"

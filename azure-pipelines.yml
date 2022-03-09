@@ -42,5 +42,13 @@ steps:
       # Attempt to use testkey.json
       gsutil -o Credentials:gs_service_key_file=$(gcpkey.secureFilePath) \
         cp latest.txt gs://opentitan-bitstreams
+      mkdir -p test/a/b
+      touch test/a/b/test1.txt
+      touch test/a/b/test2.txt
+      tar -zcvf latest-bitstreams.tar.gz \
+        "test/a/b/test1.txt" \
+        "test/a/b/test2.txt" 
+      gsutil -o Credentials:gs_service_key_file=$(gcpkey.secureFilePath) \
+        cp -r latest-bitstreams.tar.gz gs://opentitan-bitstreams
     condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'main'))
     displayName: Test installing gsutil 

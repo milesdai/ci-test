@@ -29,11 +29,11 @@ steps:
       sudo apt-get update && sudo apt-get install google-cloud-cli
 
       date -u > latest.txt
-      echo "<commit id>" >> latest.txt
+      echo ${{ Build.SourceVersion }} >> latest.txt
       echo "latest.txt:"
       cat latest.txt
       echo "Testing gsutil"
       gsutil --version
       gsutil cp --help
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'main'))
     displayName: Test installing gsutil 

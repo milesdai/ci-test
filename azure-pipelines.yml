@@ -18,6 +18,10 @@ steps:
       echo See https://aka.ms/yaml
     displayName: 'Run a multi-line script'
 
+  - task: DownloadSecureFile@1
+    name: gcpkey
+    inputs:
+      secureFile: testkey.json
   - bash: |
       # Install gsutil
       echo "Attempting to install gsutil"
@@ -34,6 +38,9 @@ steps:
       cat latest.txt
       echo "Testing gsutil"
       gsutil --version
-      gsutil cp --help
+
+      # Attempt to use testkey.json
+      gsutil -o Credentials:gs_service_key_file=$(gcpkey.secureFilePath) \
+        cp latest.txt gs://opentitan-bitstreams
     condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'main'))
     displayName: Test installing gsutil 

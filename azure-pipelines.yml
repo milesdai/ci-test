@@ -24,7 +24,7 @@ steps:
   - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
     - template: gcp-upload-template.yml
       parameters:
-        parentDir: "$PARENT_DIR"
+        parentDir: "$$PARENT_DIR"
         includeFiles:
           - "test1.txt"
           - "test2.txt"

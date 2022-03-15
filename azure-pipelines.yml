@@ -18,6 +18,18 @@ steps:
       echo See https://aka.ms/yaml
     displayName: 'Run a multi-line script'
 
+  # TODO: change this comparison to be with 'master' after testing
+  - ${{ if eq(variables['Build.SourceBranchName'], 'merge') }}:
+    - template: gcp-upload-template.yml
+      parameters:
+        parentDir: "$BIN_DIR/sw/top_earlgrey"
+        includeFiles:
+          - "lowrisc_systems_chip_earlgrey_cw310_0.1.bit"
+          - "rom.mmi"
+        archiveName: "latest-bitstreams.tar.gz"
+        gcpKeyFile: "gcpkey.json"
+        bucketURI: "gs://opentitan-bitstreams"
+
   - task: DownloadSecureFile@1
     name: gcpkey
     inputs:
@@ -50,5 +62,6 @@ steps:
         cp latest.txt gs://opentitan-bitstreams
       gsutil -o Credentials:gs_service_key_file=$(gcpkey.secureFilePath) \
         cp -r latest-bitstreams.tar.gz gs://opentitan-bitstreams
-    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'main'))
+    condition: false
+        # condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'main'))
     displayName: Test installing gsutil 

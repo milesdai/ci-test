@@ -40,9 +40,11 @@ steps:
   - bash: |
       echo "Installing gsutil"
       sudo apt-get install -y apt-transport-https ca-certificates gnupg
-      sudo cat >> /etc/apt/sources.list.d/google-cloud-sdk.list \ 
-        <<< "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" 
-      echo "vvvvvvvvv\ncat /etc/apt/sources.list.d/google-cloud-sdk.list"
+      echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list 
+      # sudo cat >> /etc/apt/sources.list.d/google-cloud-sdk.list \ 
+      #   <<< "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" 
+      echo "vvvvvvvvv"
+      echo "cat /etc/apt/sources.list.d/google-cloud-sdk.list"
       cat /etc/apt/sources.list.d/google-cloud-sdk.list 
       echo "^^^^^^^^"
       curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo tee /usr/share/keyrings/cloud.google.gpg

@@ -38,6 +38,14 @@ steps:
     inputs:
       secureFile: ${{ parameters.gcpKeyFile }}
   - bash: |
+      echo "Checking the incoming parameter"
+      echo ${{ parameters.parentDir }}
+      echo $BIN_DIR
+      . util/build_consts.sh
+      echo "After calling build_consts.sh:"
+      echo ${{ parameters.parentDir }}
+      echo $BIN_DIR
+
       echo "Installing gsutil"
       sudo apt-get install -y apt-transport-https ca-certificates gnupg
       echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list 

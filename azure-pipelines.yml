@@ -22,12 +22,12 @@ steps:
   - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
     - template: gcp-upload-template.yml
       parameters:
-        parentDir: "$BIN_DIR/sw/top_earlgrey"
+        parentDir: "."
         includeFiles:
-          - "lowrisc_systems_chip_earlgrey_cw310_0.1.bit"
-          - "rom.mmi"
-        archiveName: "latest-bitstreams.tar.gz"
-        gcpKeyFile: "gcpkey.json"
+          - "test1.txt"
+          - "test2.txt"
+        archiveName: "test.tar.gz"
+        gcpKeyFile: "testkey.json"
         bucketURI: "gs://opentitan-bitstreams"
 
           #- task: DownloadSecureFile@1

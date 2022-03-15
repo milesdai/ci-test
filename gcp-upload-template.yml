@@ -38,13 +38,13 @@ steps:
     inputs:
       secureFile: ${{ parameters.gcpKeyFile }}
   - bash: |
+      env | grep DIR
       echo "Checking the incoming parameter"
       echo ${{ parameters.parentDir }}
-      echo $BIN_DIR
-      . util/build_consts.sh
-      echo "After calling build_consts.sh:"
+
+      echo "Checking incoming parameter again after build_consts.sh"
+      readonly BIN_DIR="test"
       echo ${{ parameters.parentDir }}
-      echo $BIN_DIR
 
       echo "Installing gsutil"
       sudo apt-get install -y apt-transport-https ca-certificates gnupg

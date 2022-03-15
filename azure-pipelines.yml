@@ -13,18 +13,11 @@ steps:
   - script: echo Hello, world!
     displayName: 'Run a one-line script'
 
-  - script: |
-      echo Add other tasks to build, test, and deploy your project.
-      echo See https://aka.ms/yaml
-      PARENT_DIR="./test"
-      export PARENT_DIR
-    displayName: 'Run a multi-line script'
-
   # TODO: change this comparison to be with 'master' after testing
   - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
     - template: gcp-upload-template.yml
       parameters:
-        parentDir: "$$PARENT_DIR"
+        parentDir: "$BIN_DIR"
         includeFiles:
           - "test1.txt"
           - "test2.txt"

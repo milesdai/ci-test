@@ -59,9 +59,8 @@ steps:
       }
       sudo apt-get install -y google-cloud-cli
 
-      echo "$(date -u +%Y-%m-%dT%H:%M:%S)\n$(Build.SourceVersion)" > latest.txt
-      echo "${{ join('\n', parameters.includeFiles) }}" > include_files.txt
-      echo "-C: ${{ parameters.parentDir }}"
+      printf "$(date -u +%Y-%m-%dT%H:%M:%S)\n$(Build.SourceVersion)" > latest.txt
+      printf "${{ join('\n', parameters.includeFiles) }}" > include_files.txt
       tar -C ${{ parameters.parentDir }} -zcvf ${{ parameters.archiveName }} -T include_files.txt
 
       gsutil -o Credentials:gs_service_key_file=$(gcpkey.secureFilePath) \

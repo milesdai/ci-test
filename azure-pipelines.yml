@@ -23,7 +23,7 @@ steps:
           - "test2.txt"
         archiveName: "test.tar.gz"
         gcpKeyFile: "testkey.json"
-        bucketURI: "gs://opentitan-bitstreams"
+        bucketURI: "gs://opentitan-bitstreams/test"
 
           #- task: DownloadSecureFile@1
           #  name: gcpkey

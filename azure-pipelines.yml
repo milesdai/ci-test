@@ -12,4 +12,17 @@ pool:
 steps:
   - script: echo Hello, world!
     displayName: 'Run a one-line script'
+  - script: echo $(Build.SourceVersion)
+    displayName: 'Show current commit hash'
+  - task: GithubRelease@1
+    displayName: 'Attempt to make a github release'
+    inputs:
+      gitHubConnection: github-test-connection
+      repositoryName: milesdai/ci-test
+      action: 'create'
+      tagSource: 'userSpecifiedTag'
+      tag: 'release 1'
+      releaseNotesSource: 'inline'
+      releaseNotesInline: 'Test release'
+      assets: '$(Build.ArtifactStagingDirectory)/test/*'
 

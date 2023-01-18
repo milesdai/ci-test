@@ -6,6 +6,8 @@
 trigger:
 - main
 
+variables:
+  FORMATTED_DATE: $[format('{0:yyyyMMdd}', pipeline.startTime)]
 pool:
   vmImage: ubuntu-latest
 
@@ -21,7 +23,7 @@ steps:
       repositoryName: milesdai/ci-test
       action: 'create'
       tagSource: 'userSpecifiedTag'
-      tag: 'release-2'
+      tag: 'snapshot-$(FORMATTED_DATE)'
       releaseNotesSource: 'inline'
       releaseNotesInline: 'Test release 2'
       assets: '$(Build.ArtifactStagingDirectory)/test/*'

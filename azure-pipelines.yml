@@ -25,6 +25,6 @@ steps:
       tagSource: 'userSpecifiedTag'
       tag: 'snapshot-$(FORMATTED_DATE)'
       releaseNotesSource: 'inline'
-      releaseNotesInline: 'Test release 2'
-      assets: '$(Build.ArtifactStagingDirectory)/test/*'
+      releaseNotesInline: '[Release notes here]'
+      assets: '$(Build.SourcesDirectory)/test/*'
 

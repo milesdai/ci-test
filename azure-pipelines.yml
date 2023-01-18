@@ -7,7 +7,7 @@ trigger:
 - main
 
 variables:
-  FORMATTED_DATE: $[format('{0:yyyyMMdd}', pipeline.startTime)]
+  FORMATTED_DATE: $[format('{0:yyyyMMddHHmmss}', pipeline.startTime)]
 pool:
   vmImage: ubuntu-latest
 

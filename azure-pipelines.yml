@@ -21,7 +21,7 @@ steps:
       repositoryName: milesdai/ci-test
       action: 'create'
       tagSource: 'userSpecifiedTag'
-      tag: 'release 1'
+      tag: 'tags/release-1'
       releaseNotesSource: 'inline'
       releaseNotesInline: 'Test release'
       assets: '$(Build.ArtifactStagingDirectory)/test/*'
